@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="circular">
+        <item name="cornerRadius">10dp</item>
+        <item name="cornerSize">2dp</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+</resources>
