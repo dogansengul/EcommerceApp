@@ -25,7 +25,6 @@ class ProductCardListAdapter(private val itemClickListener: (Int) -> Unit) : Rec
         }
         fun bind(viewState: Product) {
             binding.tvProductTitle.text = viewState.title
-            //binding.tvProductDescription.text = viewState.description
             binding.tvPrice.text = viewState.price
             //imageURL loading part with glide...
             Glide.with(binding.root).load(viewState.imageUrl).listener(object : RequestListener<Drawable> {

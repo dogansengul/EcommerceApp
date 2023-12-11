@@ -22,8 +22,8 @@ class ProductRepositoryAPI @Inject constructor(private val service: ProductServi
         }
     }
 
-    override suspend fun getProducts(): List<Product> {
-        return service.getProductList().body()!!.mapIndexed() { index, it ->
+    override suspend fun getProducts(): List<Product>? {
+        return service.getProductList().body()?.mapIndexed() { index, it ->
             Product(
                 id = (index + 1).toString(), // index + 1 ile id'yi sırasıyla arttır
                 title = it.title,
@@ -31,8 +31,8 @@ class ProductRepositoryAPI @Inject constructor(private val service: ProductServi
                 price = "$ ${it.price}",
                 imageUrl = it.imageUrl,
                 // Diğer özellikler
-                true,
-                true
+                false,
+                false
             )
         }
     }

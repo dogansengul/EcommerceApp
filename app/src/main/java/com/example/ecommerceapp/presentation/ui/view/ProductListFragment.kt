@@ -16,6 +16,7 @@ import com.example.ecommerceapp.presentation.ui.adapter.ProductCardListAdapter
 import com.example.ecommerceapp.presentation.ui.adapter.RecyclerViewItemDecoration
 import com.example.ecommerceapp.business.Product
 import com.example.ecommerceapp.presentation.viewmodel.ProductListViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,7 +50,10 @@ class ProductListFragment : Fragment() {
     private fun updateUI(viewState: ProductListViewState) {
         when (viewState) {
             is ProductListViewState.Error -> {
-                Toast.makeText(requireContext(), viewState.message, Toast.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, viewState.message, Snackbar.LENGTH_INDEFINITE).setAction("Try Again", View.OnClickListener {
+                    productListViewModel.loadProductList()
+                }).show()
+                binding.progressBar.visibility = View.GONE
                 binding.rvProducts.visibility = View.GONE
             }
 

@@ -9,6 +9,7 @@ import com.example.ecommerceapp.business.Product
 import com.example.ecommerceapp.presentation.ui.viewstate.ProductListViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,7 +21,16 @@ class ProductListViewModel @Inject constructor(private val productRepository: Pr
     fun loadProductList() {
         _productListViewState.value = ProductListViewState.Loading
         viewModelScope.launch {
-            _productListViewState.value = ProductListViewState.Success(returnProducts())
+            try {
+                val productList = returnProducts()
+                _productListViewState.value = ProductListViewState.Success(returnProducts())
+            } catch (e: Exception) {
+                when(e) {
+                    is IOException -> _productListViewState.value = ProductListViewState.Error("Network Error")
+                    else -> _productListViewState.value = ProductListViewState.Error("Unknown Error")
+                }
+            }
+
         }
     }
 
